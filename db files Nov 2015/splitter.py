@@ -52,8 +52,9 @@ while (arguments >= position):
             for line in itertools.islice(f,headword_loc[i],headword_loc[i+1]-1):
                 headword_text.append(line)
             headword = headword_text[0].replace('/',' OR ')
+            headword = " ".join(headword.split())
+            headword = headword.lower()
             outputfilename=letter_output_folder+'/'+headword
-            
 
             #handle multiple same named headwords
             if os.path.exists(outputfilename):
@@ -61,7 +62,10 @@ while (arguments >= position):
                 outputfilename = outputfilename + " entry " +str(multiple_headword_count)
             else:
                 multiple_headword_count=0
-            print(outputfilename)
+            with open(outputfilename,'x') as f:
+                for line in headword_text:
+                    f.write(line)
+            print("wrote: ",outputfilename)
             
 
 
